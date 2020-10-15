@@ -1,0 +1,191 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" >
+ <html >
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+ <title>JavaScript计算器</title>
+ </head>
+ 
+ 
+ <script language="JavaScript">
+ var baseoper;
+ var digitstate;
+ var num1;
+ var operstate;
+ 
+ function setStartState()
+ {
+     digitstate="beempty";
+     num1=0;
+     baseoper="beempty";
+     operstate=false;
+     
+ }
+ function add(i)
+ {
+     if(operstate)
+     {
+        cal.total.value=i;
+        operstate=false;
+     }
+     else
+     {
+         if(cal.total.value=="0")
+         {
+             cal.total.value=i;
+             digistate="bein";
+         }
+         else
+         cal.total.value+=i;
+     }
+ }
+ function cleartext()
+ {
+     cal.total.value="0";
+     digitstate="beempty";
+     basestate="beempty"
+ }
+ 
+ function count()
+ {
+     if(baseoper!="beempty")
+     {
+         switch(baseoper)
+         {
+             case"+":
+             num1=parseFloat(num1)+parseFloat(cal.total.value);
+             break;
+             case"-":
+             num1=parseFloat(num1)-parseFloat(cal.total.value);
+             break;
+             case"*":
+             num1=parseFloat(num1)*parseFloat(cal.total.value);
+             break;
+             case"/":
+             num1=parseFloat(num1)/parseFloat(cal.total.value);
+             break;
+         }
+         preoper=true;
+         cal.total.value=num1;
+     }
+     baseoper="beempty";
+ }
+ function useFunc(func)
+ {
+     switch(func)
+     {
+         case"sin":
+         cal.total.value=Math.sin(cal.total.value);
+         break;
+         case"cos":
+         cal.total.value=Math.cos(cal.total.value);
+         break;
+         case"asin":
+         cal.total.value=Math.asin(cal.total.value);
+         break;
+         case"acos":
+         cal.total.value=Math.acos(cal.total.value);
+         break;
+         case"tan":
+         cal.total.value=Math.tan(cal.total.value);
+         break;
+         case"atan":
+         cal.total.value=Math.atan(cal.total.value);
+         break;
+         case"log":
+         cal.total.value=Math.log(cal.total.value);
+         break;
+         case"exp":
+         cal.total.value=Math.exp(cal.total.value);
+         break;
+         case"sqrt":
+         cal.total.value=Math.sqrt(cal.total.value);
+         break;
+         case"1/x":
+         cal.total.value=1/cal.total.value;
+         break;
+     }
+     operstate=true;
+ }
+ function addPoint()
+ {
+     if(digitstate=="bein"||digitstate=="beempty")
+     {
+         cal.total.value+=".";
+         digistate="befloat";
+     }
+ }
+ function setOper(oper)
+ {
+     operstate=true;
+     if(baseoper=="beempty")
+     {
+      num1=0+cal.total.value;
+      baseoper=oper;
+     }
+     else
+     {
+       count();
+       baseoper=oper;
+     }
+ }
+         
+         </script>
+ <body onload="setStartState()">
+ <font size=6>计算器</font>
+ 　                                              <!--计算器界面--------计算器界面-->
+ <form name="cal">                   
+ <table border="5" align="left" bordercolor="#FFCCFF">
+ <tr align="center">                         
+ <td colspan="6">
+ <input type="Text" name="total" size="25" value="0">
+ </td>
+ </tr>
+ 
+ <tr align="center">
+ <td><input type="Button" value="sin" onclick="useFunc('sin')"></td>
+ <td><input type="Button" value="cos" onclick="useFunc('cos')"></td>
+ <td><input type="Button" value="1" onclick="add('1')"></td>
+ <td><input type="Button" value="2" onclick="add('2')"></td>
+ <td><input type="Button" value="3" onclick="add('3')"></td>
+ <td><input type="Button" value="+" onclick="setOper('+')"></td>
+ </tr>
+ 
+ <tr align="center">
+ <td><input type="Button"  value="asin" onclick="useFunc('asin')"></td>
+ <td><input type="Button" value="acos" onclick="useFunc('acos')"></td>
+ <td><input type="Button" value="4" onclick="add('4')"></td>
+ <td><input type="Button" value="5" onclick="add('5')"></td>
+ <td><input type="Button" value="6" onclick="add('6')"></td>
+ <td><input type="Button" value="-" onclick="setOper('-')"></td>
+ </tr>
+ 
+ <tr align="center">
+ <td><input type="Button" value="tan" onclick="useFunc('tan')"></td>
+ <td><input type="Button" value="atan" onclick="useFunc('atan')"></td>
+ <td><input type="Button" value="7" onclick="add('7')"></td>
+ <td><input type="Button" value="8" onclick="add('8')"></td>
+ <td><input type="Button" value="9" onclick="add('9')"></td>
+ <td><input type="Button" value="*" onclick="setOper('*')"></td>
+ </tr>
+ 
+ <tr align="center">
+ <td><input type="Button" value="log" onclick="useFunc('log')"></td>
+ <td><input type="Button" value="exp" onclick="useFunc('exp')"></td>
+ <td><input type="Button" value="0" onclick="add('0')"></td>
+ <td><input type="Button" value="." onclick="addPoint()"></td>
+ <td><input type="Button" value="=" onclick="count()"></td>
+ <td><input type="Button" value="/" onclick="setOper('/')"></td>
+ </tr>
+ 
+ <tr align="center">
+ <td><input type="Button" value="sqrt" onclick="useFunc('sqrt')">
+ <td><input type="Button" value="1/x" onclick="useFunc('1/x')">
+ <td><input type="Button" value="pi" onclick="cal.total.value=Math.PI"></td>
+ <td><input type="Button" value="E" onclick="cal.total.value=Math.E"></td>
+ <td colspan=2><input type="Button" value="清除" onclick="cleartext()"></td>
+ </tr>
+ 
+ </table>
+ </form>
+ </body>
+ </html>
